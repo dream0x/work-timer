@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { Button, Text, View, YStack } from "tamagui";
+import { Button, Text, YStack } from "tamagui";
+import { useRecords } from "@/states/record";
 
 export default function Home() {
 	const [timer, setTimer] = useState(0);
 	const [intervalId, setIntervalId] = useState<number | null>(null);
-	const [records, setRecords] = useState<
-		{ id: string; start: Date; end: Date | null; duration: number | null }[]
-	>([]);
-	const [recordingId, setRecordingId] = useState<string | null>(null);
+	const { startRecord, stopRecord } = useRecords();
 
 	const startTimer = () => {
 		// 既に記録中の場合
@@ -20,12 +18,7 @@ export default function Home() {
 		setIntervalId(id);
 
 		// 開始時間記録
-		const recordId = crypto.randomUUID();
-		setRecordingId(recordId);
-		setRecords((prev) => [
-			...prev,
-			{ id: recordId, start: new Date(), end: null, duration: null },
-		]);
+		startRecord();
 	};
 
 	const stopTimer = () => {
@@ -35,40 +28,18 @@ export default function Home() {
 		setTimer(0);
 
 		// 終了時間記録
-		setRecords((prev) =>
-			prev.map((e) => {
-				const endDate = new Date();
-				return e.id === recordingId
-					? {
-							...e,
-							end: endDate,
-							duration: endDate.getTime() - e.start.getTime(),
-						}
-					: e;
-			}),
-		);
-		setRecordingId(null);
+		stopRecord();
 	};
 
 	return (
 		<YStack>
 			<Text>{timer}</Text>
 
-			{!recordingId ? (
+			{!intervalId ? (
 				<Button onClick={startTimer}>start</Button>
 			) : (
 				<Button onClick={stopTimer}>stop</Button>
 			)}
-
-			{records.map((record) => {
-				if (record.duration) {
-					return (
-						<Text key={record.id}>{`${record.id} - ${record.duration}`}</Text>
-					);
-				} else {
-					return <View key={record.id} />;
-				}
-			})}
 		</YStack>
 	);
 }
