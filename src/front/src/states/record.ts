@@ -1,39 +1,21 @@
 import { create } from "zustand";
-import type { TimeRecord } from "@/types/type";
+import type { RecordType } from "@/types/type";
+import { splitDateRangeByDay } from "@/utils/date-util";
 
 export const useRecords = create<{
-	records: TimeRecord[];
-	recordingId: string | null;
-	startRecord: () => void;
-	stopRecord: () => void;
-}>((set, get) => ({
+	records: RecordType[];
+	addRecord: (start: Date, end: Date) => void;
+}>((set) => ({
 	records: [],
-	recordingId: null,
-	startRecord: () => {
-		const id = crypto.randomUUID();
+	addRecord: (start: Date, end: Date) => {
 		set((s) => ({
 			records: [
 				...s.records,
-				{ id, start: new Date(), end: null, duration: null },
+				...splitDateRangeByDay(start, end).map((segment) => ({
+					id: crypto.randomUUID(),
+					...segment,
+				})),
 			],
-			recordingId: id,
-		}));
-	},
-	stopRecord: () => {
-		const { recordingId } = get();
-		if (!recordingId) return;
-		const endDate = new Date();
-		set((s) => ({
-			records: s.records.map((r) =>
-				r.id === recordingId
-					? {
-							...r,
-							end: endDate,
-							duration: endDate.getTime() - r.start.getTime(),
-						}
-					: r,
-			),
-			recordingId: null,
 		}));
 	},
 }));

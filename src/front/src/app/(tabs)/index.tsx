@@ -1,11 +1,13 @@
+import { Pause, Play } from "lucide-react-native";
 import { useState } from "react";
-import { Button, Text, YStack } from "tamagui";
-import { useRecords } from "@/states/record";
+import { Pressable } from "react-native";
+import { Circle, Text, YStack } from "tamagui";
+import { useStopwatch } from "@/states/stopwatch";
 
 export default function Home() {
 	const [timer, setTimer] = useState(0);
 	const [intervalId, setIntervalId] = useState<number | null>(null);
-	const { startRecord, stopRecord } = useRecords();
+	const { startStopwatch, stopStopWatch } = useStopwatch();
 
 	const startTimer = () => {
 		// 既に記録中の場合
@@ -17,8 +19,7 @@ export default function Home() {
 		}, 1000);
 		setIntervalId(id);
 
-		// 開始時間記録
-		startRecord();
+		startStopwatch();
 	};
 
 	const stopTimer = () => {
@@ -28,18 +29,33 @@ export default function Home() {
 		setTimer(0);
 
 		// 終了時間記録
-		stopRecord();
+		stopStopWatch();
 	};
 
 	return (
-		<YStack>
-			<Text>{timer}</Text>
+		<YStack flex={1}>
+			<YStack flex={1} justifyContent="center" alignItems="center">
+				<Circle
+					size={250}
+					backgroundColor="royalblue"
+					borderColor="white"
+					borderWidth="$4"
+				>
+					<Text fontSize="$10">{timer}</Text>
+				</Circle>
+			</YStack>
 
-			{!intervalId ? (
-				<Button onClick={startTimer}>start</Button>
-			) : (
-				<Button onClick={stopTimer}>stop</Button>
-			)}
+			<YStack justifyContent="center" alignItems="center">
+				{!intervalId ? (
+					<Pressable style={{ padding: 50 }} onPress={startTimer}>
+						<Play size={50} />
+					</Pressable>
+				) : (
+					<Pressable style={{ padding: 50 }} onPress={stopTimer}>
+						<Pause size={50} />
+					</Pressable>
+				)}
+			</YStack>
 		</YStack>
 	);
 }

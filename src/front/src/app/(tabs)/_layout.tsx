@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Layers, Timer } from "lucide-react-native";
+import { ChartColumn, Timer } from "lucide-react-native";
 
 export default function TabLayout() {
 	return (
@@ -15,7 +15,9 @@ export default function TabLayout() {
 				name="record"
 				options={{
 					title: "記録",
-					tabBarIcon: ({ color, size }) => <Layers color={color} size={size} />,
+					tabBarIcon: ({ color, size }) => (
+						<ChartColumn color={color} size={size} />
+					),
 				}}
 			/>
 		</Tabs>

@@ -1,6 +1,7 @@
-export type TimeRecord = {
+export type RecordType = {
 	id: string;
+	date: Date;
 	start: Date;
-	end: Date | null;
-	duration: number | null;
+	end: Date;
+	duration: number;
 };
