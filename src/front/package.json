@@ -17,6 +17,7 @@
     "@tamagui/helpers-icon": "^3.0.7",
     "axios": "^1.20.0",
     "expo": "^57.0.1",
+    "expo-crypto": "~57.0.4",
     "expo-router": "~57.0.2",
     "expo-splash-screen": "~57.0.10",
     "expo-updates": "~57.0.26",
@@ -29,6 +30,7 @@
     "react-native-svg": "15.15.4",
     "react-native-web": "^0.21.0",
     "tamagui": "^3.0.7",
+    "temporal-polyfill": "^1.0.6",
     "typescript": "~6.0.3",
     "zustand": "^5.0.15"
   },

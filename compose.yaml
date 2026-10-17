@@ -21,7 +21,8 @@ services:
     volumes:
       - ./src/front:/home/node/front
     init: true
-    command: npx expo start --lan -p 3000
+    tty: true
+    command: npx expo start --tunnel
 
 volumes:
   caddy_data:

@@ -1,3 +1,4 @@
+import { randomUUID } from "expo-crypto";
 import { create } from "zustand";
 import type { Record } from "@/types/type";
 import { splitDateRangeByDay } from "@/utils/date-util";
@@ -12,7 +13,7 @@ export const useRecords = create<{
 			records: [
 				...s.records,
 				...splitDateRangeByDay(start, end).map((segment) => ({
-					id: crypto.randomUUID(),
+					id: randomUUID(),
 					title,
 					...segment,
 				})),

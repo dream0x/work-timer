@@ -1,3 +1,4 @@
+import "temporal-polyfill/global";
 import { animations } from "@tamagui/config/animations-reanimated";
 import { defaultConfig } from "@tamagui/config/v6";
 import { Stack } from "expo-router";

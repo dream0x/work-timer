@@ -6,10 +6,11 @@ export function useTimer() {
 	const [elapsedSeconds, setElapsedSeconds] = useState(0);
 	const timerMode = useTimerMode((state) => state.timerMode);
 	const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-	const timerRef = useRef<{ start: Date | null; end: Date | null }>({
+	const sessionRef = useRef<{ start: Date | null; end: Date | null }>({
 		start: null,
 		end: null,
 	});
+	const [isRunning, setIsRunning] = useState(false);
 	const [title, setTitle] = useState("");
 	const { createRecord } = useRecords();
 
@@ -21,7 +22,8 @@ export function useTimer() {
 		intervalRef.current = setInterval(() => {
 			setElapsedSeconds((prev) => prev + 1);
 		}, 1000);
-		timerRef.current.start = new Date();
+		sessionRef.current.start = new Date();
+		setIsRunning(true);
 	};
 
 	const stopTimer = () => {
@@ -29,18 +31,19 @@ export function useTimer() {
 		clearInterval(intervalRef.current);
 		intervalRef.current = null;
 		setElapsedSeconds(0);
-		timerRef.current.end = new Date();
+		sessionRef.current.end = new Date();
+		setIsRunning(false);
 
 		// 停止処理
-		const { start, end } = timerRef.current;
+		const { start, end } = sessionRef.current;
 		createRecord(title, start!, end);
 		setTitle("");
 	};
 
 	return {
 		elapsedSeconds,
-		intervalRef,
-		timerRef,
+		timerRef: sessionRef,
+		isRunning,
 		startTimer,
 		stopTimer,
 		title,

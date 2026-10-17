@@ -1,7 +1,7 @@
-import { Adapt, Button, Select, Sheet, View, XStack, YStack } from "tamagui";
+import { Select, View, XStack, YStack } from "tamagui";
 import Countdown from "@/components/Countdown";
 import Stopwatch from "@/components/Stopwatch";
-import { type TimerMode, useTimerMode } from "@/states/timer-mode";
+import { useTimerMode } from "@/states/timer-mode";
 
 export default function Home() {
 	const timerMode = useTimerMode((state) => state.timerMode);
@@ -49,8 +49,4 @@ export default function Home() {
 			</XStack>
 		</YStack>
 	);
-}
-
-function TimerModeBtn(props: { text: string }) {
-	return <Button width={150}>{props.text}</Button>;
 }
