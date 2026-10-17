@@ -1,4 +1,4 @@
-export type RecordType = {
+export type Record = {
 	id: string;
 	date: Date;
 	start: Date;
@@ -7,7 +7,7 @@ export type RecordType = {
 	title: string;
 };
 
-export type AddRecordType = {
+export type AddRecord = {
 	date: Date;
 	start: Date;
 	end: Date;

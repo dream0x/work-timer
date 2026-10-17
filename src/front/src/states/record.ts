@@ -1,9 +1,9 @@
 import { create } from "zustand";
-import type { RecordType } from "@/types/type";
+import type { Record } from "@/types/type";
 import { splitDateRangeByDay } from "@/utils/date-util";
 
 export const useRecords = create<{
-	records: RecordType[];
+	records: Record[];
 	createRecord: (title: string, start: Date, end: Date) => void;
 }>((set) => ({
 	records: [],

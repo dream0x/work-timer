@@ -1,4 +1,4 @@
-import type { AddRecordType, RecordType } from "@/types/type";
+import type { AddRecord, Record } from "@/types/type";
 
 /**
  * 開始日時から終了日時までの期間を日ごとに分割する
@@ -6,8 +6,8 @@ import type { AddRecordType, RecordType } from "@/types/type";
 export const splitDateRangeByDay = (
 	startDate: Date,
 	endDate: Date,
-): AddRecordType[] => {
-	const result: AddRecordType[] = [];
+): AddRecord[] => {
+	const result: AddRecord[] = [];
 	let current = new Date(startDate);
 
 	while (current < endDate) {
@@ -35,8 +35,8 @@ export const splitDateRangeByDay = (
 	return result;
 };
 
-function groupByDate(records: RecordType[]) {
-	const groups = new Map<string, RecordType[]>();
+function groupByDate(records: Record[]) {
+	const groups = new Map<string, Record[]>();
 
 	for (const record of records) {
 		const date = [

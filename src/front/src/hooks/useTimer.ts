@@ -1,11 +1,10 @@
 import { useRef, useState } from "react";
 import { useRecords } from "@/states/record";
-
-type TimerMode = "pomodoro" | "timer" | "stopwatch";
+import { type TimerMode, useTimerMode } from "@/states/timer-mode";
 
 export function useTimer() {
 	const [elapsedSeconds, setElapsedSeconds] = useState(0);
-	const modeRef = useRef<TimerMode | null>(null);
+	const timerMode = useTimerMode((state) => state.timerMode);
 	const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 	const timerRef = useRef<{ start: Date | null; end: Date | null }>({
 		start: null,
@@ -40,7 +39,6 @@ export function useTimer() {
 
 	return {
 		elapsedSeconds,
-		modeRef,
 		intervalRef,
 		timerRef,
 		startTimer,
