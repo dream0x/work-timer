@@ -4,15 +4,16 @@ import { splitDateRangeByDay } from "@/utils/date-util";
 
 export const useRecords = create<{
 	records: RecordType[];
-	addRecord: (start: Date, end: Date) => void;
+	addRecord: (title: string, start: Date, end: Date) => void;
 }>((set) => ({
 	records: [],
-	addRecord: (start: Date, end: Date) => {
+	addRecord: (title: string, start: Date, end: Date) => {
 		set((s) => ({
 			records: [
 				...s.records,
 				...splitDateRangeByDay(start, end).map((segment) => ({
 					id: crypto.randomUUID(),
+					title,
 					...segment,
 				})),
 			],

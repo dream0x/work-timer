@@ -1,4 +1,4 @@
-import type { RecordType } from "@/types/type";
+import type { AddRecordType, RecordType } from "@/types/type";
 
 /**
  * 開始日時から終了日時までの期間を日ごとに分割する
@@ -6,8 +6,8 @@ import type { RecordType } from "@/types/type";
 export const splitDateRangeByDay = (
 	startDate: Date,
 	endDate: Date,
-): Omit<RecordType, "id">[] => {
-	const result: Omit<RecordType, "id">[] = [];
+): AddRecordType[] => {
+	const result: AddRecordType[] = [];
 	let current = new Date(startDate);
 
 	while (current < endDate) {
@@ -69,7 +69,8 @@ export const formatDuration = (ms: number) => {
 /**
  * 日付をフォーマットする
  */
-export const formatDate = (date: Date) => {
+export const formatDate = (dateString: string) => {
+	const date = new Date(dateString);
 	const year = date.getFullYear();
 	const month = String(date.getMonth() + 1).padStart(2, "0");
 	const day = String(date.getDate()).padStart(2, "0");

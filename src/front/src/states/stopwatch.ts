@@ -4,7 +4,7 @@ import { useRecords } from "./record";
 export const useStopwatch = create<{
 	stopwatch: { start: Date | null; end: Date | null };
 	startStopwatch: () => void;
-	stopStopWatch: () => void;
+	stopStopWatch: (title: string) => void;
 }>((set, get) => {
 	return {
 		stopwatch: { start: null, end: null },
@@ -16,7 +16,7 @@ export const useStopwatch = create<{
 			}));
 		},
 
-		stopStopWatch: () => {
+		stopStopWatch: (title: string) => {
 			// 終了時刻記録
 			set((s) => ({
 				stopwatch: { ...s.stopwatch, end: new Date() },
@@ -24,7 +24,7 @@ export const useStopwatch = create<{
 
 			// 記録追加
 			const { start, end } = get().stopwatch;
-			useRecords.getState().addRecord(start!, end!);
+			useRecords.getState().addRecord(title, start!, end!);
 		},
 	};
 });

@@ -1,12 +1,12 @@
-import { Pause, Play } from "lucide-react-native";
-import { useState } from "react";
-import { Pressable } from "react-native";
-import { Circle, Text, YStack } from "tamagui";
+import { type LucideIcon, Pause, Play } from "lucide-react-native";
+import { type ReactNode, useState } from "react";
+import { Button, Input, Text, View, XStack, YStack } from "tamagui";
 import { useStopwatch } from "@/states/stopwatch";
 
 export default function Home() {
 	const [timer, setTimer] = useState(0);
 	const [intervalId, setIntervalId] = useState<number | null>(null);
+	const [title, setTitle] = useState<string>("");
 	const { startStopwatch, stopStopWatch } = useStopwatch();
 
 	const startTimer = () => {
@@ -29,33 +29,44 @@ export default function Home() {
 		setTimer(0);
 
 		// 終了時間記録
-		stopStopWatch();
+		stopStopWatch(title);
+
+		// 入力欄初期化
+		setTitle("");
 	};
 
 	return (
 		<YStack flex={1}>
-			<YStack flex={1} justifyContent="center" alignItems="center">
-				<Circle
-					size={250}
-					backgroundColor="royalblue"
-					borderColor="white"
-					borderWidth="$4"
-				>
-					<Text fontSize="$10">{timer}</Text>
-				</Circle>
-			</YStack>
+			<YStack flex={1} justifyContent="center" alignItems="center" gap="$10">
+				{/* タイマー表示 */}
+				<Text fontSize="$10">{timer}</Text>
 
-			<YStack justifyContent="center" alignItems="center">
-				{!intervalId ? (
-					<Pressable style={{ padding: 50 }} onPress={startTimer}>
-						<Play size={50} />
-					</Pressable>
-				) : (
-					<Pressable style={{ padding: 50 }} onPress={stopTimer}>
-						<Pause size={50} />
-					</Pressable>
-				)}
+				<XStack>
+					{/* タイトル入力欄 */}
+					<Input placeholder="作業内容" value={title} onChangeText={setTitle} />
+					{/* 開始・終了ボタン */}
+					{!intervalId ? (
+						<TimerButton pressFunc={startTimer}>
+							<Play />
+						</TimerButton>
+					) : (
+						<TimerButton pressFunc={stopTimer}>
+							<Pause />
+						</TimerButton>
+					)}
+				</XStack>
 			</YStack>
 		</YStack>
+	);
+}
+
+export function TimerButton(props: {
+	children: ReactNode;
+	pressFunc: () => void;
+}) {
+	return (
+		<Button onPress={props.pressFunc} size="lg">
+			{props.children}
+		</Button>
 	);
 }
