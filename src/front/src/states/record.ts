@@ -4,10 +4,10 @@ import { splitDateRangeByDay } from "@/utils/date-util";
 
 export const useRecords = create<{
 	records: RecordType[];
-	addRecord: (title: string, start: Date, end: Date) => void;
+	createRecord: (title: string, start: Date, end: Date) => void;
 }>((set) => ({
 	records: [],
-	addRecord: (title: string, start: Date, end: Date) => {
+	createRecord: (title: string, start: Date, end: Date) => {
 		set((s) => ({
 			records: [
 				...s.records,
