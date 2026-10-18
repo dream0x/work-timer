@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Sheet, Text, View, XStack, YStack } from "tamagui";
 import Countdown from "@/components/Countdown";
+import Pomodoro from "@/components/Pomodoro";
 import Stopwatch from "@/components/Stopwatch";
 import { type TimerMode, useTimerMode } from "@/states/timer-mode";
 
@@ -23,7 +24,7 @@ export default function Home() {
 	const render = () => {
 		switch (timerMode) {
 			case "pomodoro":
-				return null;
+				return <Pomodoro />;
 			case "countdown":
 				return <Countdown />;
 			case "stopwatch":

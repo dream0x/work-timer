@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useRecords } from "@/states/record";
 import { type TimerMode, useTimerMode } from "@/states/timer-mode";
 
-export function useTimer() {
+export function useTimer({ record = true }: { record?: boolean } = {}) {
 	const [elapsedSeconds, setElapsedSeconds] = useState(0);
 	const timerMode = useTimerMode((state) => state.timerMode);
 	const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -36,7 +36,7 @@ export function useTimer() {
 
 		// 停止処理
 		const { start, end } = sessionRef.current;
-		createRecord(title, start!, end);
+		if (record) createRecord(title, start!, end);
 		setTitle("");
 	};
 

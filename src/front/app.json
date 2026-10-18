@@ -1,43 +1,43 @@
 {
-	"expo": {
-		"version": "1.0.0",
-		"name": "expo-app",
-		"slug": "expo-app",
-		"scheme": "expo-app",
-		"icon": "./assets/icon.png",
-		"ios": {
-			"bundleIdentifier": "com.yuio123.expo-app"
-		},
-		"android": {
-			"package": "com.yuio123.expo-app"
-		},
-		"web": {
-			"output": "single",
-			"favicon": "./public/favicon.png"
-		},
-		"userInterfaceStyle": "automatic",
-		"plugins": [
-			"expo-router",
-			[
-				"expo-splash-screen",
-				{
-					"image": "./assets/icon.png",
-					"imageWidth": 150
-				}
-			]
-		],
-		"experiments": {
-			"typedRoutes": true,
-			"reactCompiler": true
-		},
-		"extra": {
-			"router": {},
-			"eas": {
-				"projectId": ""
-			}
-		},
-		"runtimeVersion": {
-			"policy": "appVersion"
-		}
-	}
+  "expo": {
+    "version": "1.0.0",
+    "name": "work-timer",
+    "slug": "work-timer",
+    "scheme": "work-timer",
+    "icon": "./assets/icon.png",
+    "ios": {
+      "bundleIdentifier": "com.yuio123.work-timer"
+    },
+    "android": {
+      "package": "com.yuio123.worktimer"
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./public/favicon.png"
+    },
+    "userInterfaceStyle": "automatic",
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/icon.png",
+          "imageWidth": 150
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "95cbf479-fee5-43b2-9441-9d33264b6494"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    }
+  }
 }
